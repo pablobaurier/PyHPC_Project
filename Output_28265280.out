@@ -1,0 +1,16 @@
+No GPU on this node, CUDA module not loaded
+10 buildings - 13.48 seconds
+20 buildings - 34.74 seconds
+30 buildings - 44.63 seconds
+40 buildings - 63.42 seconds
+50 buildings - 97.79 seconds
+60 buildings - 120.43 seconds
+70 buildings - 139.58 seconds
+80 buildings - 170.49 seconds
+90 buildings - 188.92 seconds
+100 buildings - 211.61 seconds
+150 buildings - 304.54 seconds
+200 buildings - 402.56 seconds
+
+
+NUMBA
