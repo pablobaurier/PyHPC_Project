@@ -1,0 +1,70 @@
+No GPU on this node, CUDA module not loaded
+Building 10000: 3601 iterations, Time: 6.3793s
+Building 10009: 5492 iterations, Time: 10.2492s
+Building 10014: 7964 iterations, Time: 16.5178s
+Building 10019: 7869 iterations, Time: 16.7603s
+Building 10029: 3492 iterations, Time: 5.1823s
+Building 10031: 4734 iterations, Time: 9.0160s
+Building 10051: 1534 iterations, Time: 2.9895s
+Building 10053: 4478 iterations, Time: 7.5870s
+Building 10056: 1591 iterations, Time: 3.1184s
+Building 10064: 6517 iterations, Time: 13.6059s
+
+Total time for 10 buildings: 91.69s
+Average time per building: 9.1685s
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28248553: <timing_ref> in cluster <dcc> Done
+
+Job <timing_ref> was submitted from host <hpclogin2> by user <s253742> in cluster <dcc> at Tue Apr 21 21:07:36 2026
+Job was executed on host(s) <n-62-31-5>, in queue <hpc>, as user <s253742> in cluster <dcc> at Tue Apr 21 21:07:38 2026
+</zhome/1e/3/223875> was used as the home directory.
+</zhome/1e/3/223875/projects/phpc/MiniProject> was used as the working directory.
+Started at Tue Apr 21 21:07:38 2026
+Terminated at Tue Apr 21 21:09:12 2026
+Results reported at Tue Apr 21 21:09:12 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -J timing_ref
+#BSUB -o logs/timing%J.out
+#BSUB -e logs/timing%J.err
+#BSUB -q hpc
+#BSUB -W 00:30
+#BSUB -n 1
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -R "select[model == XeonGold6126]"
+
+source /dtu/projects/02613_2025/conda/conda_init.sh
+conda activate 02613
+
+python3 src/time_and_visualize.py
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   93.37 sec.
+    Max Memory :                                 73 MB
+    Average Memory :                             73.00 MB
+    Total Requested Memory :                     16384.00 MB
+    Delta Memory :                               16311.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   94 sec.
+    Turnaround time :                            96 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <logs/timing28248553.err> for stderr output of this job.
+

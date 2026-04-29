@@ -1,0 +1,19 @@
+No GPU on this node, CUDA module not loaded
+
+Total time for 1 buildings: 6.08s
+Average time per building: 6.0839s
+
+Total time for 2 buildings: 15.91s
+Average time per building: 7.9553s
+
+Total time for 3 buildings: 31.46s
+Average time per building: 10.4861s
+
+Total time for 4 buildings: 48.57s
+Average time per building: 12.1417s
+
+Total time for 10 buildings: 86.39s
+Average time per building: 8.6390s
+
+Total time for 15 buildings: 159.17s
+Average time per building: 10.6114s
