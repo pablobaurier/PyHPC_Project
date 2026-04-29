@@ -14,7 +14,6 @@ def load_data(load_dir, bid):
 
 @jit(nopython=True)
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
-    # Keep two buffers to preserve Jacobi semantics (updates from previous iteration only).
     u_curr = np.copy(u)
     u_next = np.copy(u)
 
