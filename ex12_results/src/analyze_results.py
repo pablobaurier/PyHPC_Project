@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 # Load data
 df = pd.read_csv('results/results.csv')
 
-# # 1. Distribution of mean temperatures (Histogram)
-# plt.figure(figsize=(10, 6))
-# df['mean_temp'].hist(bins=30, color='skyblue', edgecolor='black')
-# plt.title('Distribution of Mean Interior Temperatures')
-# plt.xlabel('Mean Temperature (ºC)')
-# plt.ylabel('Number of Buildings')
-# plt.savefig('results/mean_temp_distribution.png')
+# 1. Distribution of mean temperatures (Histogram)
+plt.figure(figsize=(10, 6))
+df['mean_temp'].hist(bins=30, color='skyblue', edgecolor='black')
+plt.title('Distribution of Mean Interior Temperatures')
+plt.xlabel('Mean Temperature (ºC)')
+plt.ylabel('Number of Buildings')
+plt.savefig('results/mean_temp_distribution.png')
 
 # 2. Average mean temperature
 avg_mean = df['mean_temp'].mean()

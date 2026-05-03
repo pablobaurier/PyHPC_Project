@@ -5,7 +5,7 @@ from os.path import join
 import sys
 from time import perf_counter
 
-# --- CUDA KERNEL ---
+
 @cuda.jit
 def jacobi_kernel(u, out, interior_mask):
     i, j = cuda.grid(2)
@@ -54,11 +54,8 @@ if __name__ == '__main__':
         u0[1:-1, 1:-1] = np.load(join(LOAD_DIR, f"{bid}_domain.npy"))
         mask = np.load(join(LOAD_DIR, f"{bid}_interior.npy"))
         
-        # Solve
         u_final = jacobi_cuda(u0, mask, MAX_ITER)
         
-        # Stats
         stats = summary_stats(u_final, mask)
         
-        # Print row immediately
         print(f"{bid},{stats['mean_temp']},{stats['std_temp']},{stats['pct_above_18']},{stats['pct_below_15']}")

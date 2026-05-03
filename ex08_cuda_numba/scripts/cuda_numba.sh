@@ -13,4 +13,4 @@
 source /dtu/projects/02613_2025/conda/conda_init.sh
 conda activate 02613_2026
 
-python src/simulate_cuda_numba.py 4571
+python src/simulate_cuda_numba.py 50

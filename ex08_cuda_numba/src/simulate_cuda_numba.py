@@ -16,16 +16,12 @@ def load_data(load_dir, bid):
 
 @cuda.jit
 def jacobi_kernel(u, out, interior_mask):
-    # Get 2D coordinates
     i, j = cuda.grid(2)
     
-    # Boundary check: Ensure we are within the 514x514 grid 
-    # and not on the very outer padding edge (0 or 513)
+    # Ensure we are within the 514x514 grid 
     if 0 < i < u.shape[0] - 1 and 0 < j < u.shape[1] - 1:
         
-        # Check the interior mask. 
-        # Note: interior_mask is 512x512, u is 514x514.
-        # u[1,1] corresponds to interior_mask[0,0]
+        # Check the interior mask.
         if interior_mask[i-1, j-1]:
             out[i, j] = 0.25 * (u[i-1, j] + u[i+1, j] + u[i, j-1] + u[i, j+1])
         else:
@@ -33,29 +29,25 @@ def jacobi_kernel(u, out, interior_mask):
             out[i, j] = u[i, j]
 
 def jacobi_cuda(u_host, interior_mask_host, max_iter):
-# 1. Move data to the GPU (Device) ONCE
+    # Move data to the GPU 
     d_u = cuda.to_device(u_host)
     d_out = cuda.to_device(u_host) # Initialize out with same boundaries
     d_mask = cuda.to_device(interior_mask_host)
     
-    # 2. Define block and grid dimensions
-    # A 16x16 or 32x32 block is usually efficient for 2D grids
-    threads_per_block = (32, 32)
+    # Define block and grid dimensions
+    threads_per_block = (16, 16)
     blocks_per_grid_x = math.ceil(u_host.shape[0] / threads_per_block[0])
     blocks_per_grid_y = math.ceil(u_host.shape[1] / threads_per_block[1])
     grid_dims = (blocks_per_grid_x, blocks_per_grid_y)
     
-    # 3. Main Loop
     for i in range(max_iter):
         # Run the kernel
         jacobi_kernel[grid_dims, threads_per_block](d_u, d_out, d_mask)
         
-        # DOUBLE BUFFERING:
-        # We swap the pointers. What was 'new' becomes 'old' for the next step.
-        # This is extremely fast because it doesn't move data, just references.
+        # Swap the pointers so what  was 'new' becomes 'old' for the next step
         d_u, d_out = d_out, d_u
         
-    # 4. Copy the final result back to the CPU (Host) ONCE
+    # Copy the final result back to the CPU 
     return d_u.copy_to_host()
 
 
@@ -102,12 +94,11 @@ if __name__ == '__main__':
     
     total_start = perf_counter()
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
-        # Start timer
         u = jacobi_cuda(u0, interior_mask, MAX_ITER)
-        # End timer
         all_u[i] = u
     
     total_end = perf_counter()
+    
     avg_time = (total_end - total_start) / N
     print(f"\nTotal time for {N} buildings: {total_end - total_start:.2f}s")
     print(f"Average time per building: {avg_time:.4f}s")
