@@ -23,15 +23,11 @@ def jacobi(u, interior_mask, max_iter, atol=1e-6, check_interval=100):
         u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
         u_new_interior = u_new[interior_mask]
         
-        #if i % check_interval == 0:
-        #    delta = cp.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
-        #    
-        #    if delta < atol:
-        #        break
-        
-        delta = cp.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
-        if delta < atol:
-            break
+        if i % check_interval == 0:
+            delta = cp.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
+            
+            if delta < atol:
+                break
             
         u[1:-1, 1:-1][interior_mask] = u_new_interior
     return u
